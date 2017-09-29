@@ -10,7 +10,7 @@ public class WeaponScript : MonoBehaviour
 
     public float shootingRate = 0.25f;
 
-    public float shootCooldown = 0f;
+    private float shootCooldown = 0f;
 
     // Update is called once per frame
     void Update()

@@ -15,8 +15,6 @@ public class PlayerScript : MonoBehaviour {
     private float angle;
     private Vector3 rotation;
 
-    public float power = 10;
-
     private void Start()
     {
         weapon = GetComponent<WeaponScript>();

@@ -30,5 +30,8 @@ public class HealthScript : MonoBehaviour {
                 Destroy(shot.gameObject);
             }
         }
+
+        if (otherCollider.gameObject.CompareTag("Enemy"))
+            Destroy(gameObject);
     }
 }

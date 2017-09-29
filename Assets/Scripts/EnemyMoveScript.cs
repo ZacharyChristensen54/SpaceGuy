@@ -6,16 +6,24 @@ public class EnemyMoveScript : MonoBehaviour {
 
 
     public Vector2 speed = new Vector2(10, 10);
+    public float leftBound = -2;
+    public float rightBound = 2;
+    public float yDecrement = .2f;
 
     private Vector2 direction = new Vector2(-1, 0);
 
+    private float yPos;
+    private float xPos;
     private Vector2 movement;
+
     private Rigidbody2D[] rb;
+    
 
     // Use this for initialization
     void Start()
     {
         rb = GetComponentsInChildren<Rigidbody2D>();
+        yPos = transform.position.y;
         for (int i = 0; i < rb.Length; i++)
         {
             rb[i].velocity = new Vector2(speed.x, 0);
@@ -29,24 +37,30 @@ public class EnemyMoveScript : MonoBehaviour {
         if (rb == null)
             rb = GetComponentsInChildren<Rigidbody2D>();
 
-        float xPos = transform.position.x;
-        if (xPos > 1)
+        xPos = transform.position.x;
+        if (xPos > rightBound)
             direction = new Vector2(-1, 0);
-        if (xPos < -1)
+        if (xPos < leftBound)
             direction = new Vector2(1, 0);
 
-        movement = new Vector2(speed.x * direction.x, speed.y * direction.y);
-    }
-
-    void FixedUpdate()
-    {
-        if (rb == null)
-            rb = GetComponentsInChildren<Rigidbody2D>();
-
-        float xPos = transform.position.x;
-        if (xPos > 2 || xPos < -2)
+        if (xPos > rightBound || xPos < leftBound)
         {
-            
+            if (transform.position.y == yPos)
+            {
+                movement = new Vector2(0, speed.y * -1f);
+                for (int i = 0; i < rb.Length; i++)
+                {
+                    if (rb[i] != null)
+                        rb[i].velocity = movement;
+                }
+            }
+        }
+
+        if (transform.position.y < (yPos - yDecrement))
+        {
+            yPos = transform.position.y;
+
+            movement = new Vector2(direction.x * speed.x, 0);
             for (int i = 0; i < rb.Length; i++)
             {
                 if (rb[i] != null)
