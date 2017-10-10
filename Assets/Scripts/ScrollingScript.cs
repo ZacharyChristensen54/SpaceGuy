@@ -59,7 +59,7 @@ public class ScrollingScript : MonoBehaviour
             // We would need to add a few conditions to handle
             // all the possible scrolling directions.
             backgroundPart = backgroundPart.OrderBy(
-              t => t.transform.position.y
+              t => t.transform.position.x
             ).ToList();
         }
     }
@@ -93,7 +93,7 @@ public class ScrollingScript : MonoBehaviour
                 // Check if the child is already (partly) before the camera.
                 // We test the position first because the IsVisibleFrom
                 // method is a bit heavier to execute.
-                if (firstChild.transform.position.y < Camera.main.transform.position.y)
+                if (firstChild.transform.position.x < Camera.main.transform.position.x)
                 {
                     // If the child is already on the left of the camera,
                     // we test if it's completely outside and needs to be
@@ -109,7 +109,7 @@ public class ScrollingScript : MonoBehaviour
                         // Set the position of the recyled one to be AFTER
                         // the last child.
                         // Note: Only work for horizontal scrolling currently.
-                        firstChild.transform.position = new Vector3(firstChild.transform.position.x, lastPosition.y + lastSize.y, firstChild.transform.position.z);
+                        firstChild.transform.position = new Vector3( lastPosition.x + lastSize.x, firstChild.transform.position.y, firstChild.transform.position.z);
 
                         // Set the recycled child to the last position
                         // of the backgroundPart list.

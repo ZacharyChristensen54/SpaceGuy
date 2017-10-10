@@ -8,6 +8,7 @@ public class EnemyMoveScript : MonoBehaviour {
     public Vector2 speed = new Vector2(10, 10);
     public float leftBound = -2;
     public float rightBound = 2;
+    public float floorBound = -4;
 
     private Vector2 direction = new Vector2(-1, -1);
     
@@ -25,6 +26,9 @@ public class EnemyMoveScript : MonoBehaviour {
 
         movement = new Vector2(speed.x * direction.x, speed.y * direction.y);
         transform.Translate(movement * Time.deltaTime);
+
+        if (transform.position.y < floorBound)
+            Destroy(gameObject);
     }
 
 

@@ -31,7 +31,7 @@ public class HealthScript : MonoBehaviour {
             }
         }
 
-        if (otherCollider.gameObject.CompareTag("Enemy"))
+        if (otherCollider.gameObject.CompareTag("Enemy") && !gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
             Destroy(otherCollider.gameObject);

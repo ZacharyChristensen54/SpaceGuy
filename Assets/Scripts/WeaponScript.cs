@@ -37,14 +37,14 @@ public class WeaponScript : MonoBehaviour
                 shot.isEnemyShot = isEnemy;
             }
 
-            Destroy(shotTransform.gameObject, 5);
+            Destroy(shotTransform.gameObject, 2);
             Vector2 mousePos = Input.mousePosition;
 
             Vector2 objPos = Camera.main.WorldToScreenPoint(transform.position);
             mousePos.x = -(mousePos.x - objPos.x);
             mousePos.y = -(mousePos.y - objPos.y);
 
-            float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg + 90; // +90 to correct the bullet angle
             Vector2 movement = new Vector2(mousePos.x * shotSpeed, mousePos.y * shotSpeed);
             Vector3 rotation = new Vector3(0, 0, angle);
 
