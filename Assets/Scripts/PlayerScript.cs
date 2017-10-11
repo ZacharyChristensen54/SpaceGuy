@@ -17,7 +17,9 @@ public class PlayerScript : MonoBehaviour {
 
     private void Start()
     {
+        
         weapon = GetComponent<WeaponScript>();
+        
     }
 
     void Update ()
@@ -37,6 +39,8 @@ public class PlayerScript : MonoBehaviour {
 
             rotation = new Vector3(0, 0, angle);
             transform.rotation = Quaternion.Euler(rotation);
+
+            
         }
 
         if (Input.GetMouseButtonUp(0))

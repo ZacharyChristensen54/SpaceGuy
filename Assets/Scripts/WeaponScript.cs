@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponScript : MonoBehaviour
 {
     public float shotSpeed;
+    public Vector3 shotOffset = Vector3.zero;
 
     public Transform shotPrefab;
 
@@ -29,7 +30,8 @@ public class WeaponScript : MonoBehaviour
 
             var shotTransform = Instantiate(shotPrefab) as Transform;
 
-            shotTransform.position = transform.position + new Vector3(0.1f, 0, 0);
+            shotTransform.position = transform.position + shotOffset;
+            
 
             ShotScript shot = shotTransform.gameObject.GetComponent<ShotScript>();
             if (shot != null)
@@ -39,17 +41,17 @@ public class WeaponScript : MonoBehaviour
 
             Destroy(shotTransform.gameObject, 2);
             Vector2 mousePos = Input.mousePosition;
-
+            
             Vector2 objPos = Camera.main.WorldToScreenPoint(transform.position);
             mousePos.x = -(mousePos.x - objPos.x);
             mousePos.y = -(mousePos.y - objPos.y);
 
-            float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg + 90; // +90 to correct the bullet angle
-            Vector2 movement = new Vector2(mousePos.x * shotSpeed, mousePos.y * shotSpeed);
+            float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
             Vector3 rotation = new Vector3(0, 0, angle);
 
-            shotTransform.rotation = Quaternion.Euler(rotation);
-            shotTransform.GetComponent<Rigidbody2D>().AddForce(movement);
+            //shotTransform.rotation = Quaternion.Euler(rotation);
+            shotTransform.transform.RotateAround(transform.position, new Vector3(0, 0, 1), angle);
+            shotTransform.GetComponent<Rigidbody2D>().AddForce(shotTransform.transform.right.normalized * shotSpeed);
 
         }
     }
